@@ -1,6 +1,6 @@
+import { BaseSyntheticEvent, memo } from 'react'
 import { Stack, Card, Typography, Button } from '@mui/material'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import { BaseSyntheticEvent } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import EditBtn from 'src/components/EditBtn'
@@ -11,7 +11,7 @@ import Routes from 'src/routing/routes'
 import { TodoItemProps } from './types'
 import useTodoItem from './hook'
 
-const TodoItem = ({ data }: TodoItemProps) => {
+const TodoItem = memo(({ data }: TodoItemProps) => {
   const { _id, name, description, progress } = data
   const { removeTodo } = useTodoItem()
   return (
@@ -80,6 +80,6 @@ const TodoItem = ({ data }: TodoItemProps) => {
       </Stack>
     </Card>
   )
-}
+})
 
 export default TodoItem

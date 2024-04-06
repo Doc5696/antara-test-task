@@ -4,3 +4,5 @@ export type TodoSchema = {
   description: string
   progress: number
 }
+
+export type TodoProgressIoUpdateSchema = Pick<TodoSchema, '_id' | 'progress'>
