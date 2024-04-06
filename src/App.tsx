@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { SnackbarProvider } from 'notistack'
+import { BrowserRouter } from 'react-router-dom'
+import NiceModal from '@ebay/nice-modal-react'
+
+import apiConfig from './config/api'
+import { NOTIFICATIONS_AUTO_HIDE_DURATION } from './config'
+import TodoList from './pages/TodoList'
+import CloseSnackbarBtn from 'src/components/CloseSnackbarBtn'
+
+const queryClient = new QueryClient({
+  defaultOptions: { queries: apiConfig.queryConfig },
+})
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <SnackbarProvider
+      action={CloseSnackbarBtn}
+      autoHideDuration={NOTIFICATIONS_AUTO_HIDE_DURATION}
+    >
+      <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+          <NiceModal.Provider>
+            <TodoList />
+          </NiceModal.Provider>
+        </QueryClientProvider>
+      </BrowserRouter>
+    </SnackbarProvider>
+  )
 }
 
-export default App;
+export default App
