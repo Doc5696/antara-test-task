@@ -14,12 +14,14 @@ import CreateTodoForm from './Form'
 import { ModalProps } from './types'
 
 const TodoModal = NiceModal.create<ModalProps>(({ data }) => {
-  const { onSave, modal, control, isSubmitBtnDisabled } =
+  const { onSave, modal, control, isSubmitBtnDisabled, isInEditMode } =
     useCreateTodoForm(data)
 
   return (
     <MuiDialog {...muiDialogV5(modal)} onClose={undefined}>
-      <DialogTitle>Create new TODO</DialogTitle>
+      <DialogTitle>
+        {isInEditMode ? 'Edit TODO' : 'Create new TODO'}
+      </DialogTitle>
       <DialogContent>
         <CreateTodoForm
           control={control}

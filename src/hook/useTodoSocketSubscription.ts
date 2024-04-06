@@ -48,9 +48,6 @@ const useTodoSocketSubscription = () => {
 
     return () => {
       socket.off(SocketEvents.UPDATE_TODO_PROGRESS, updateTodosQueryData)
-      if (socket.connected) {
-        socket.disconnect()
-      }
     }
   }, [queryClient, updateTodosQueryData])
 }

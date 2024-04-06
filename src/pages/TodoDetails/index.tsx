@@ -6,13 +6,14 @@ import { BaseSyntheticEvent } from 'react'
 import { showConfirmDelete } from 'src/modals/ConfirmDelete'
 import { showUpdateTodo } from 'src/modals/Todo'
 import PageContainer from 'src/components/PageContainer'
-import useTodoDetails from './hook'
 import Routes from 'src/routing/routes'
+import useTodoDetails from './hook'
+import NoDataMessage from './NoDataMessage'
 
 const TodoDetails = () => {
   const { data, removeTodo, navigate } = useTodoDetails()
 
-  if (!data) return null
+  if (!data) return <NoDataMessage />
   const { _id, name, description, progress } = data
 
   return (

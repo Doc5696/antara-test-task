@@ -66,18 +66,18 @@ const useCreateTodoForm = (data?: TodoSchema) => {
   const onSave = handleSubmit(
     isPending
       ? () => {}
-      : data =>
-          mutate({
+      : data => {
+          const todoId = isInEditMode ? data._id : getTimeStamp().toString()
+          return mutate({
             ...data,
-            [FORM_FIELDS.ID]: isInEditMode
-              ? data._id
-              : getTimeStamp().toString(),
-          }),
+            [FORM_FIELDS.ID]: todoId,
+          })
+        },
   )
 
   const isSubmitBtnDisabled = !isValid || isPending || !isDirty
 
-  return { modal, control, onSave, isSubmitBtnDisabled }
+  return { modal, control, onSave, isSubmitBtnDisabled, isInEditMode }
 }
 
 export default useCreateTodoForm
