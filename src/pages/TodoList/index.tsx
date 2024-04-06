@@ -4,6 +4,7 @@ import AddIcon from '@mui/icons-material/Add'
 import PageContainer from 'src/components/PageContainer'
 import TodoItem from 'src/features/TodoItem'
 import { showCreateTodo } from 'src/modals/Todo'
+import NoDataMessage from './NoDataMessage'
 import useTodoList from './hook'
 
 const TodoList = () => {
@@ -18,7 +19,11 @@ const TodoList = () => {
           Your TODO list:
         </Typography>
         <Stack spacing={1.5}>
-          {todos?.map(todo => <TodoItem key={todo._id} data={todo} />)}
+          {todos && todos?.length ? (
+            todos.map(todo => <TodoItem key={todo._id} data={todo} />)
+          ) : (
+            <NoDataMessage />
+          )}
         </Stack>
         <Fab
           color="primary"
