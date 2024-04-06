@@ -7,3 +7,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.text-id-grey {
+  color: grey;
+  font-size: 18px;
+}
+
+.text-bold {
+  font-weight: 'bold';
+}

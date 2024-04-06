@@ -13,7 +13,7 @@ const TodoList = () => {
   if (isLoading && !isRefetching) return null
   return (
     <PageContainer>
-      <Stack spacing={2}>
+      <Stack spacing={2} pb={3}>
         <Typography variant="h2" align="center">
           Your TODO list:
         </Typography>

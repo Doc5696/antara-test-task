@@ -1,31 +1,31 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { SnackbarProvider } from 'notistack'
-import { BrowserRouter } from 'react-router-dom'
 import NiceModal from '@ebay/nice-modal-react'
 
+import CloseSnackbarBtn from 'src/components/CloseSnackbarBtn'
+import ErrorBoundary from 'src/features/ErrorBoundary'
 import apiConfig from './config/api'
 import { NOTIFICATIONS_AUTO_HIDE_DURATION } from './config'
-import TodoList from './pages/TodoList'
-import CloseSnackbarBtn from 'src/components/CloseSnackbarBtn'
+import Routing from './routing'
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: apiConfig.queryConfig },
 })
 
-function App() {
+const App = () => {
   return (
-    <SnackbarProvider
-      action={CloseSnackbarBtn}
-      autoHideDuration={NOTIFICATIONS_AUTO_HIDE_DURATION}
-    >
-      <BrowserRouter>
+    <ErrorBoundary>
+      <SnackbarProvider
+        action={CloseSnackbarBtn}
+        autoHideDuration={NOTIFICATIONS_AUTO_HIDE_DURATION}
+      >
         <QueryClientProvider client={queryClient}>
           <NiceModal.Provider>
-            <TodoList />
+            <Routing />
           </NiceModal.Provider>
         </QueryClientProvider>
-      </BrowserRouter>
-    </SnackbarProvider>
+      </SnackbarProvider>
+    </ErrorBoundary>
   )
 }
 

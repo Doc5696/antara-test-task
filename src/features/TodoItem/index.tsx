@@ -1,10 +1,13 @@
-import { Stack, Card, Typography } from '@mui/material'
+import { Stack, Card, Typography, Button } from '@mui/material'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { BaseSyntheticEvent } from 'react'
+import { NavLink } from 'react-router-dom'
 
 import EditBtn from 'src/components/EditBtn'
 import DeleteBtn from 'src/components/DeleteBtn'
 import { showConfirmDelete } from 'src/modals/ConfirmDelete'
 import { showUpdateTodo } from 'src/modals/Todo'
+import Routes from 'src/routing/routes'
 import { TodoItemProps } from './types'
 import useTodoItem from './hook'
 
@@ -22,22 +25,37 @@ const TodoItem = ({ data }: TodoItemProps) => {
       }}
     >
       <Stack direction="row" justifyContent="space-between" spacing={2}>
-        <Stack direction="column">
-          <Typography variant="h5">
+        <Stack direction="column" maxWidth="80%">
+          <Typography
+            variant="h5"
+            sx={{
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+            }}
+          >
             {name}&nbsp;
-            <span style={{ color: 'grey', fontSize: 18 }}>#{_id}</span>
+            <span className="text-id-grey">#{_id}</span>
           </Typography>
           <Typography mt={2} variant="body2">
             Description:
           </Typography>
-          <Typography>{description}</Typography>
+          <Typography
+            sx={{
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {description}
+          </Typography>
           <Typography mt={2} variant="body2">
             Progress:&nbsp;
-            <span style={{ fontWeight: 'bold' }}>{progress}</span>
+            <span className="text-bold">{progress}</span>
           </Typography>
         </Stack>
-        <Stack direction="column">
-          <Stack direction="row" spacing={1}>
+        <Stack direction="column" spacing={2} justifyContent="space-around">
+          <Stack direction="row" spacing={1} justifyContent="flex-end">
             <EditBtn
               onClick={(e: BaseSyntheticEvent) => {
                 showUpdateTodo(e, data)
@@ -50,6 +68,13 @@ const TodoItem = ({ data }: TodoItemProps) => {
                 })
               }}
             />
+          </Stack>
+          <Stack>
+            <NavLink to={`${Routes.TODOS}/${_id}`}>
+              <Button variant="contained" endIcon={<ChevronRightIcon />}>
+                See more
+              </Button>
+            </NavLink>
           </Stack>
         </Stack>
       </Stack>
